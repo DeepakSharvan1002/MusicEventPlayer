@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-image: url(img/5053309.jpg);
+    background-repeat: no-repeat;
+    background-size: cover; 
+}
+main{
+    display: flex;
+    flex-direction: row;
+    height: 99.6vh;
+    border: 2px solid black;
+}
+main div:nth-child(1){
+    width: 25%;
+    border: 1px solid rgb(48, 48, 48);
+    height: 100%;
+}
+main div:nth-child(2){
+    width: 45%;
+
+}
+main div:nth-child(3){
+    width: 30%;
+    border: 1px solid rgb(48, 48, 48);
+    height: 100%
+}
+main div{
+    text-align: center;
+}
+.playerList  > section {
+    height: 25%;
+}
+.playerList > section > p:nth-child(1){
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    color: rgb(0, 0, 0);
+    font-size: medium;
+    padding: 5px 0px;
+}
+.playerList > section > .cover{
+    width: 100%;
+    height: calc(100% - 28.4px);
+    overflow-y :scroll;
+    color: white;
+}
