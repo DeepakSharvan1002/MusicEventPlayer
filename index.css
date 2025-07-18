@@ -10,7 +10,7 @@ body{
 main{
     display: flex;
     flex-direction: row;
-    height: 99.6vh;
+    height: 99.5vh;
     border: 2px solid black;
 }
 main div:nth-child(1){
@@ -60,4 +60,27 @@ main div{
 }
 .disk > .diskrun >img{
     width: 110%;
+}
+
+/*third part of the lyrics , last part*/
+.lyrics{
+    width: 98% !important;
+    display: flex;
+    justify-content: center;
+    overflow-y: scroll;
+    height: calc(100% - 37px);
+}
+.lyrics > table{
+    width: 95%;
+    /* border: 1px solid yellow; */
+    padding-top: 7px;
+}
+.lyrics > table > tbody >tr{
+    display: grid;
+    padding: 7px 0px;
+    justify-content: end;
+    border-bottom: 1.5px outset;
+}
+.lyrics > table > tbody >tr > td{
+    font-size: 130%;
 }
