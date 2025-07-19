@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Code Event Entry</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding-top: 100px;
+    }
+    #entry-section {
+      display: none;
+    }
+    #message {
+      font-size: 24px;
+      color: red;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to the Coding Event</h1>
+  <div id="message">Checking access time...</div>
+
+  <div id="entry-section">
+    <p>You're allowed to enter now!</p>
+    <button onclick="startTest()">Start Test</button>
+  </div>
+
+  <script>
+    // Set event start and end time (24-hour format)
+    const startTime = new Date();
+    startTime.setHours(18, 0, 0);  // 8:00 PM
+    const endTime = new Date();
+    endTime.setHours(19, 10, 0);  // 8:10 PM
+
+    const now = new Date();
+    const messageEl = document.getElementById("message");
+    const entrySection = document.getElementById("entry-section");
+
+    if (now >= startTime && now <= endTime) {
+      messageEl.style.display = "none";
+      entrySection.style.display = "block";
+    } else if (now < startTime) {
+      messageEl.innerText = "The event has not started yet. Please come back at 8:00 PM.";
+    } else {
+      messageEl.innerText = "Entry time is over. You are not allowed to enter now.";
+    }
+
+    function startTest() {
+      window.location.href = "coding-page.html"; // Move to rearrange + compile page
+    }
+  </script>
+
+</body>
+</html>
