@@ -71,7 +71,19 @@ main > div:nth-child(3) >h1{
     overflow-y :scroll;
     color: white;
 }
-
+.playerList table tr td:nth-child(1){
+    text-align: left;
+    padding-left: 15px;
+}
+.playerList table  tr  td:nth-child(2){
+    text-align: right;
+    direction: rtl;
+    padding-right: 15px;
+}
+.playerList table{
+    width: 100%;
+    padding: 0px 15px;
+}
 
 /*second part of the dashboard , middle part*/
 .disk > .diskrun{
