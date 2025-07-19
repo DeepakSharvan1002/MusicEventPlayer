@@ -42,11 +42,13 @@ main > div{
     border-left-width: 0px;
 
 }
+main > div:nth-child(1)>h1{
+    backdrop-filter: blur(5px);
+    border-bottom: 2px solid rgba(168, 168, 168, 0.582);
+}
 main > div:nth-child(3) >h1{
     backdrop-filter: blur(5px);
     border-bottom: 2px solid rgba(168, 168, 168, 0.582);
-    
-
 }
 .playerList{
     border-top-width: 0px;
@@ -54,37 +56,31 @@ main > div:nth-child(3) >h1{
     border-bottom-width: 0px;
     border-left-width: 0px;
 }
-.playerList  > section {
-    height: 25%;
-}
-.playerList > section > p:nth-child(1){
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    color: ghostwhite;
-    font-size: medium;
-    padding: 5px 0px;
-    text-transform: uppercase;
-}
-.playerList > section > .cover{
-    width: 100%;
-    height: calc(100% - 28.4px);
-    overflow-y :scroll;
-    color: white;
-}
-.playerList table tr td:nth-child(1){
+.playerList table tr td:nth-child(3){
     text-align: left;
-    padding-left: 15px;
 }
 .playerList table  tr  td:nth-child(2){
+    text-align: left;
+}
+.playerList table  tr  td:nth-child(1){
     text-align: right;
     direction: rtl;
-    padding-right: 15px;
 }
 .playerList table{
     width: 100%;
     padding: 0px 15px;
 }
-
+.playerList table tr td{
+    padding: 5px 0px 5px 15px;
+    font-size: 140%;
+}
+.playerList > .cover{
+    height: calc(100% - 39px);
+    width: 100%;
+    overflow-y: auto;       /* Enable vertical scroll */
+    overflow-x: hidden;     /* Disable horizontal scroll */
+    direction: rtl;
+}
 /*second part of the dashboard , middle part*/
 .disk > .diskrun{
     display: flex;
