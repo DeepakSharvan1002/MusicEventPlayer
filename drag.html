@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rearrange the Code</title>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 40px;
+      text-align: center;
+      background-image: url(img/5053309.jpg);
+      background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    }
+
+    h2{
+        color: #eae4e4;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      width: 60%;
+      margin: auto;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      background: #f0f0f0;
+      margin: 0px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      font-family: monospace;
+      justify-content: flex-start;
+      transition: background-color 1s ease;
+    }
+
+    .drag-icon {
+      margin:0px 20px 0px 5px;
+      cursor: grab;
+      font-size: 18px;
+      user-select: none;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    /* Modal styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .modal-content button {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Arrange the Code in Correct Order</h2>
+
+  <ul id="code-lines">
+    <li><span class="drag-icon">⋮⋮</span>System.out.println("World");</li>
+    <li><span class="drag-icon">⋮⋮</span>public static void main(String[] args) {</li>
+    <li><span class="drag-icon">⋮⋮</span>}</li>
+    <li><span class="drag-icon">⋮⋮</span>class Hello {</li>
+    <li><span class="drag-icon">⋮⋮</span>System.out.println("Hello");</li>
+    <li><span class="drag-icon">⋮⋮</span>}</li>
+  </ul>
+
+  <button onclick="submitCode()">Submit</button>
+
+  <!-- Modal Popup -->
+  <div class="modal" id="successModal">
+    <div class="modal-content">
+      <h2>🎉 Congratulations!</h2>
+      <p>You have successfully rearranged the code.</p>
+      <button onclick="goToCompiler()">Go to Next Step</button>
+    </div>
+  </div>
+
+  <script>
+    const correctCode = [
+      'class Hello {',
+      'public static void main(String[] args) {',
+      'System.out.println("Hello");',
+      'System.out.println("World");',
+      '}',
+      '}'
+    ];
+
+    new Sortable(document.getElementById('code-lines'), {
+      animation: 150,
+      handle: '.drag-icon'
+    });
+
+    function submitCode() {
+      const listItems = document.querySelectorAll("#code-lines li");
+      let allCorrect = true;
+
+      listItems.forEach((item, index) => {
+        const userCode = item.innerText.replace("⋮⋮", "").trim();
+        if (userCode === correctCode[index]) {
+          item.style.backgroundColor = "rgba(199, 247, 193, 0.)";  // green
+        } else {
+          item.style.backgroundColor = "rgba(248, 182, 182, 0.7)";   // red
+          allCorrect = false;
+        }
+      });
+
+      if (allCorrect) {
+        // Show modal popup
+        document.getElementById("successModal").style.display = "flex";
+      } else {
+        setTimeout(() => {
+          listItems.forEach(item => {
+            item.style.backgroundColor = "#f0f0f0";
+          });
+        }, 5000);
+      }
+    }
+
+    function goToCompiler() {
+      window.location.href = "compiler-page.html";  // Update with actual page
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Java Code Runner</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 300px;
+      font-family: monospace;
+      font-size: 16px;
+      padding: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      font-size: 16px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #output {
+      background: #fff;
+      border: 1px solid #ccc;
+      margin-top: 20px;
+      padding: 10px;
+      font-family: monospace;
+    }
+    #successModal {
+      display: none;
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #dff0d8;
+      padding: 30px;
+      border: 2px solid #3c763d;
+      box-shadow: 0 0 10px #999;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Code Compilation - Java</h2>
+
+<!-- Visible Input/Output -->
+<p><strong>Sample Input:</strong> <span id="sampleInput">2 3</span></p>
+<p><strong>Expected Output:</strong> <span id="expectedOutput">5</span></p>
+
+<!-- Code Area -->
+<textarea id="codeEditor">
+// Sample Java Code
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        System.out.println(a + b);
+    }
+}
+</textarea>
+
+<!-- Run Button -->
+<br>
+<button onclick="runCode()">Run Code</button>
+
+<!-- Output Section -->
+<div id="output">Output will be shown here...</div>
+
+<!-- Success Modal -->
+<div id="successModal">
+  🎉 <strong>Congratulations!</strong><br>
+  All test cases passed.<br><br>
+  <button onclick="goToNextStep()">Next Step</button>
+</div>
+
+<script>
+  function runCode() {
+    const code = document.getElementById("codeEditor").value;
+
+    // Simulate API call to backend (use real API in production)
+    fetch('backend/compile-java.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ code: code })
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("output").innerText = data.visibleOutput;
+
+      if (data.success) {
+        document.getElementById("successModal").style.display = "block";
+      }
+    });
+  }
+
+  function goToNextStep() {
+    // Redirect or show compiler interface
+    alert("Now going to the next step!");
+    // location.href = "/next-step.html";
+  }
+</script>
+
+</body>
+</html>
