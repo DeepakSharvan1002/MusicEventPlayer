@@ -120,9 +120,9 @@
       listItems.forEach((item, index) => {
         const userCode = item.innerText.replace("⋮⋮", "").trim();
         if (userCode === correctCode[index]) {
-          item.style.backgroundColor = "rgba(199, 247, 193, 0.)";  // green
+          item.style.backgroundColor = "rgba(199, 247, 193)";  // green
         } else {
-          item.style.backgroundColor = "rgba(248, 182, 182, 0.7)";   // red
+          item.style.backgroundColor = "rgba(248, 182, 182)";   // red
           allCorrect = false;
         }
       });
@@ -135,12 +135,12 @@
           listItems.forEach(item => {
             item.style.backgroundColor = "#f0f0f0";
           });
-        }, 5000);
+        }, 2000);
       }
     }
 
     function goToCompiler() {
-      window.location.href = "compiler-page.html";  // Update with actual page
+      window.location.href = "codeedit.html";  // Update with actual page
     }
   </script>
 

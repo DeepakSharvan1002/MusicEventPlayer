@@ -36,9 +36,9 @@
   <script>
     // Set event start and end time (24-hour format)
     const startTime = new Date();
-    startTime.setHours(18, 0, 0);  // 8:00 PM
+    startTime.setHours(1, 0, 0);  // 8:00 PM
     const endTime = new Date();
-    endTime.setHours(19, 10, 0);  // 8:10 PM
+    endTime.setHours(24, 10, 0);  // 8:10 PM
 
     const now = new Date();
     const messageEl = document.getElementById("message");
@@ -54,7 +54,7 @@
     }
 
     function startTest() {
-      window.location.href = "coding-page.html"; // Move to rearrange + compile page
+      window.location.href = "drag.html"; // Move to rearrange + compile page
     }
   </script>
 
