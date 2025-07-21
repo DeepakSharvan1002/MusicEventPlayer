@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Java Online Compiler</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 20px;
+      background: #f2f2f2;
+    }
+    h1 {
+      text-align: center;
+    }
+    .editor-container {
+      width: 90%;
+      margin: auto;
+    }
+    #codeEditor {
+      height: 300px;
+      border: 1px solid #ccc;
+    }
+    textarea, pre {
+      width: 100%;
+      font-family: monospace;
+      font-size: 16px;
+    }
+    textarea {
+      margin-top: 10px;
+      height: 100px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    pre {
+      background: #000;
+      color: #0f0;
+      padding: 15px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Java Online Compiler</h1>
+  <div class="editor-container">
+    <textarea id="code" placeholder="Write your Java code here...">public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</textarea>
+
+    <label for="customInput"><strong>Custom Input (optional):</strong></label>
+    <textarea id="customInput" placeholder="Enter input here...">5
+10</textarea>
+
+    <button onclick="runCode()">Run Code</button>
+
+    <h3>Output:</h3>
+    <pre id="output">Waiting for code...</pre>
+  </div>
+
+  <!-- CodeMirror -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/clike/clike.min.js"></script>
+
+  <script>
+    // Initialize CodeMirror
+    const codeArea = document.getElementById("code");
+    const editor = CodeMirror.fromTextArea(codeArea, {
+      mode: "text/x-java",
+      theme: "default",
+      lineNumbers: true
+    });
+
+    function runCode() {
+      const code = editor.getValue();
+      const customInput = document.getElementById("customInput").value;
+
+      document.getElementById("output").textContent = "Compiling and running...";
+
+      fetch("backend/compile-java.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          code: code,
+          customInput: customInput
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("output").textContent = data.visibleOutput;
+      })
+      .catch(err => {
+        document.getElementById("output").textContent = "Error: " + err;
+      });
+    }
+  </script>
+</body>
+</html>
