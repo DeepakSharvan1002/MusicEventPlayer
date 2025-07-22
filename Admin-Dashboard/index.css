@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-image: url(img/5053309.jpg);
+    background-repeat: no-repeat;
+    background-size: cover; 
+}
+main{
+    display: flex;
+    flex-direction: row;
+    height: 99.5vh;
+    border: 2px solid black;
+}
+main div:nth-child(1){
+    width: 25%;
+    border: 1px solid rgb(48, 48, 48);
+    height: 100%;
+    color: ghostwhite;
+}
+main div:nth-child(2){
+    width: 45%;
+    color: ghostwhite;
+}
+main div:nth-child(3){
+    width: 30%;
+    border: 1px solid rgb(48, 48, 48);
+    height: 100%;
+    color: ghostwhite;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+
+}
+main > div{
+    text-align: center;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+
+}
+main > div:nth-child(1)>h1{
+    backdrop-filter: blur(5px);
+    border-bottom: 2px solid rgba(168, 168, 168, 0.582);
+}
+main > div:nth-child(3) >h1{
+    backdrop-filter: blur(5px);
+    border-bottom: 2px solid rgba(168, 168, 168, 0.582);
+}
+.playerList{
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+}
+.playerList table tr td:nth-child(3){
+    text-align: left;
+}
+.playerList table  tr  td:nth-child(2){
+    text-align: left;
+}
+.playerList table  tr  td:nth-child(1){
+    text-align: right;
+    direction: rtl;
+}
+.playerList table{
+    width: 100%;
+    padding: 0px 15px;
+}
+.playerList table tr td{
+    padding: 5px 0px 5px 15px;
+    font-size: 140%;
+}
+.playerList > .cover{
+    height: calc(100% - 39px);
+    width: 100%;
+    overflow-y: auto;       /* Enable vertical scroll */
+    overflow-x: hidden;     /* Disable horizontal scroll */
+    direction: rtl;
+}
+/*second part of the dashboard , middle part*/
+.disk > .diskrun{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.disk > .diskrun >img{
+    width: 110%;
+}
+
+/*third part of the lyrics , last part*/
+.lyrics{
+    width: 100% !important;
+    display: flex;
+    overflow-y: scroll;
+    height: calc(100% - 37px);
+}
+.lyrics > table{
+    width: 95%;
+    padding-top: 7px;
+}
+.lyrics > table > tbody >tr{
+    display: grid;
+    padding: 9px 0px;
+    justify-content: end;
+}
+.lyrics > table > tbody >tr > td > p{
+    font-size: 130%;
+    text-align: right;
+    direction: rtl;
+}
