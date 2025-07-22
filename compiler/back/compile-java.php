@@ -1,68 +1,43 @@
 <?php
-
 header('Content-Type: application/json');
 
-$input = json_decode(file_get_contents('php://input'), true);
+$data = json_decode(file_get_contents('php://input'), true);
 
-$code = $input['code'] ?? '';
-$userInput = $input['customInput'] ?? '';
+$code = $data['code'];
+$className = preg_replace('/[^a-zA-Z0-9]/', '', $data['className']); // Sanitize
+$input = $data['input'];
 
-if (empty($code)) {
-    echo json_encode(["success" => false, "visibleOutput" => "No code provided."]);
+if (!$className) {
+    echo json_encode(["output" => "Error: Invalid class name"]);
     exit;
 }
 
-// 🛑 Check for multiple public classes
-preg_match_all('/public\s+class\s+(\w+)/', $code, $matches);
-if (count($matches[1]) > 1) {
-    echo json_encode([
-        "success" => false,
-        "visibleOutput" => "Error: Only one 'public class' is allowed. Found: " . implode(', ', $matches[1])
-    ]);
-    exit;
-}
+$filename = "$className.java";
+$filePath = __DIR__ . "/$filename";
 
-// ✅ Get the public class name
-$className = $matches[1][0] ?? 'Main';
-
-$javaFile = "$className.java";
-$classFile = "$className.class";
-$inputFile = 'input.txt';
-$outputFile = 'output.txt';
-$errorFile = 'error.txt';
-
-// Save files
-file_put_contents($javaFile, $code);
-file_put_contents($inputFile, $userInput);
+// Save the code to file
+file_put_contents($filePath, $code);
 
 // Compile
-exec("javac $javaFile 2>$errorFile");
-$compileError = file_get_contents($errorFile);
+$compile = shell_exec("javac $filePath 2>&1");
 
-if (!empty($compileError)) {
-    echo json_encode(["success" => false, "visibleOutput" => "Compilation Error:\n" . $compileError]);
-    cleanup([$javaFile, $classFile, $inputFile, $outputFile, $errorFile]);
+if ($compile) {
+    // Compilation error
+    echo json_encode(["output" => "Compilation Error:\n" . $compile]);
+    unlink($filePath);
     exit;
 }
 
-// Run
-exec("java $className < $inputFile > $outputFile 2>>$errorFile");
-$output = file_get_contents($outputFile);
-$runtimeError = file_get_contents($errorFile);
+// Run (multiple test cases supported through custom input)
+$run = shell_exec("echo " . escapeshellarg($input) . " | java -cp " . __DIR__ . " $className 2>&1");
 
-// Return output
-echo json_encode([
-    "success" => true,
-    "visibleOutput" => $output ?: $runtimeError
-]);
+// Output result
+echo json_encode(["output" => trim($run)]);
 
-// Cleanup temp files
-cleanup([$javaFile, $classFile, $inputFile, $outputFile, $errorFile]);
-
-function cleanup($files) {
-    foreach ($files as $file) {
-        if (file_exists($file)) {
-            unlink($file);
-        }
-    }
+// Cleanup
+unlink($filePath);
+$classFile = __DIR__ . "/$className.class";
+if (file_exists($classFile)) {
+    unlink($classFile);
 }
+?>
