@@ -21,6 +21,12 @@
       font-size: 18px;
       margin-top: 20px;
     }
+    input[type="text"] {
+      font-size: 18px;
+      padding: 8px;
+      margin-top: 15px;
+      width: 300px;
+    }
   </style>
 </head>
 <body>
@@ -30,15 +36,16 @@
 
   <div id="entry-section">
     <p>You're allowed to enter now!</p>
+    
+    <input type="text" id="teamName" placeholder="Enter your team name"><br>
     <button onclick="startTest()">Start Test</button>
   </div>
 
   <script>
-    // Set event start and end time (24-hour format)
     const startTime = new Date();
-    startTime.setHours(1, 0, 0);  // 8:00 PM
+    startTime.setHours(1, 0, 0);  // 1:00 AM
     const endTime = new Date();
-    endTime.setHours(24, 10, 0);  // 8:10 PM
+    endTime.setHours(24, 10, 0); // 10:00 AM
 
     const now = new Date();
     const messageEl = document.getElementById("message");
@@ -48,13 +55,21 @@
       messageEl.style.display = "none";
       entrySection.style.display = "block";
     } else if (now < startTime) {
-      messageEl.innerText = "The event has not started yet. Please come back at 8:00 PM.";
+      messageEl.innerText = "The event has not started yet.";
     } else {
-      messageEl.innerText = "Entry time is over. You are not allowed to enter now.";
+      messageEl.innerText = "Entry time is over.";
     }
 
     function startTest() {
-      window.location.href = "drag.html"; // Move to rearrange + compile page
+      const teamName = document.getElementById("teamName").value.trim();
+      if (teamName === "") {
+        alert("Please enter your team name.");
+        return;
+      }
+      localStorage.setItem("teamName", teamName);
+      localStorage.setItem("score", "0");
+      localStorage.setItem("attempts", "0");
+      window.location.href = "drag.html";
     }
   </script>
 

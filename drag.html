@@ -8,15 +8,15 @@
     body {
       font-family: Arial;
       margin: 40px;
-      text-align: center;
       background-image: url(img/5053309.jpg);
       background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
+      background-size: cover;
+      height: 100vh;
     }
 
-    h2{
-        color: #eae4e4;
+    h2 {
+      color: #eae4e4;
+      text-align: center;
     }
 
     ul {
@@ -39,7 +39,7 @@
     }
 
     .drag-icon {
-      margin:0px 20px 0px 5px;
+      margin: 0px 20px 0px 5px;
       cursor: grab;
       font-size: 18px;
       user-select: none;
@@ -51,7 +51,18 @@
       font-size: 16px;
     }
 
-    /* Modal styling */
+    .scoreboard {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      font-weight: bold;
+      text-align: right;
+    }
+
     .modal {
       display: none;
       position: fixed;
@@ -68,13 +79,15 @@
       border-radius: 10px;
       text-align: center;
     }
-
-    .modal-content button {
-      margin-top: 15px;
-    }
   </style>
 </head>
 <body>
+
+  <!-- SCORE & TEAM -->
+  <div class="scoreboard">
+    Team: <span id="teamName">Team Alpha</span><br>
+    Score: <span id="score">0</span>
+  </div>
 
   <h2>Arrange the Code in Correct Order</h2>
 
@@ -108,6 +121,12 @@
       '}'
     ];
 
+    let score = sessionStorage.getItem("score") || 0;
+    document.getElementById("score").textContent = score;
+
+    const teamName = sessionStorage.getItem("teamName") || "Team Alpha";
+    document.getElementById("teamName").textContent = teamName;
+
     new Sortable(document.getElementById('code-lines'), {
       animation: 150,
       handle: '.drag-icon'
@@ -120,17 +139,26 @@
       listItems.forEach((item, index) => {
         const userCode = item.innerText.replace("⋮⋮", "").trim();
         if (userCode === correctCode[index]) {
-          item.style.backgroundColor = "rgba(199, 247, 193)";  // green
+          item.style.backgroundColor = "rgba(199, 247, 193)";
         } else {
-          item.style.backgroundColor = "rgba(248, 182, 182)";   // red
+          item.style.backgroundColor = "rgba(248, 182, 182)";
           allCorrect = false;
         }
       });
 
       if (allCorrect) {
-        // Show modal popup
+        if (sessionStorage.getItem("completed") !== "true") {
+          score = parseInt(score) + 10;
+          sessionStorage.setItem("score", score);
+          sessionStorage.setItem("completed", "true");
+        }
+        document.getElementById("score").textContent = score;
         document.getElementById("successModal").style.display = "flex";
       } else {
+        score = parseInt(score) - 1;
+        sessionStorage.setItem("score", score);
+        document.getElementById("score").textContent = score;
+
         setTimeout(() => {
           listItems.forEach(item => {
             item.style.backgroundColor = "#f0f0f0";
@@ -140,7 +168,7 @@
     }
 
     function goToCompiler() {
-      window.location.href = "compiler/codeedit.html";  // Update with actual page
+      window.location.href = "compiler/codeedit.html";
     }
   </script>
 
