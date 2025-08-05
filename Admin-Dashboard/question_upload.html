@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Organizer Code Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 14px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      display: none;
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 25px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Upload Correct & Wrong Code</h2>
+
+  <form id="uploadForm" action="upload-both-code.php" method="POST" onsubmit="return validateForm()">
+    <label for="correct_code">Correct Code</label>
+    <textarea id="correct_code" name="correct_code" rows="10" required placeholder="Paste the correct Java code here..."></textarea>
+    <div class="error" id="correctCodeError">Correct code is required.</div>
+
+    <label for="wrong_code">Wrong Code</label>
+    <textarea id="wrong_code" name="wrong_code" rows="10" required placeholder="Paste the student's wrong code here..."></textarea>
+    <div class="error" id="wrongCodeError">Wrong code is required.</div>
+
+    <button type="submit">Upload to Database</button>
+  </form>
+
+  <script>
+    function validateForm() {
+      const correctCode = document.getElementById('correct_code').value.trim();
+      const wrongCode = document.getElementById('wrong_code').value.trim();
+      let valid = true;
+
+      if (correctCode === "") {
+        document.getElementById('correctCodeError').style.display = "block";
+        valid = false;
+      } else {
+        document.getElementById('correctCodeError').style.display = "none";
+      }
+
+      if (wrongCode === "") {
+        document.getElementById('wrongCodeError').style.display = "block";
+        valid = false;
+      } else {
+        document.getElementById('wrongCodeError').style.display = "none";
+      }
+
+      return valid;
+    }
+  </script>
+
+</body>
+</html>

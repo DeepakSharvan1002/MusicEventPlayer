@@ -66,9 +66,9 @@
         alert("Please enter your team name.");
         return;
       }
-      localStorage.setItem("teamName", teamName);
-      localStorage.setItem("score", "0");
-      localStorage.setItem("attempts", "0");
+      sessionStorage.setItem("teamName", teamName);
+      sessionStorage.setItem("score", "0");
+      sessionStorage.setItem("attempts", "0");
       window.location.href = "drag.html";
     }
   </script>
